@@ -5,13 +5,24 @@ from flask import Flask, render_template, send_from_directory, request
 app = Flask(__name__)
 
 
-@app.route('/chatbot/')
+@app.route('/')
 def chatbot():
-    return render_template('chatbot.html')
+    return render_template('index.html')
 
 
-@app.route('/chatbot/<customerID>/<chatID>', methods=['POST'])
+@app.route('/<customerID>/<chatID>', methods=['POST'])
 def chatbot_post(customerID, chatID):
+
+    msgs = {
+        1: {
+            1: [
+                {'sender': 'A', 'content': 'Du Fischkopf', 'timestamp': 1603034040},
+                {'sender': 'B', 'content': 'Du Kopffisch', 'timestamp': 1603034020},
+                {'sender': 'B', 'content': 'Du Cockfisch', 'timestamp': 1603034340},
+                {'sender': 'A', 'content': 'Du Fickkosch', 'timestamp': 1603022000},
+            ]
+        }
+    }
 
     query = request.form
     print(query)
