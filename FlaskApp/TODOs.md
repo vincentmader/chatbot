@@ -1,0 +1,24 @@
+
+- [ ] frontend 
+    - [ ] basic strucutre
+        - [ ] start button
+        - [ ] chat history
+            - [ ] get message list and display
+        - [ ] input field & send button
+            - [ ] post message info to backend on send
+    - [ ] beautify / css
+        - [ ] profile info
+        - [ ] typing animation
+- [ ] backend
+    - [ ] chatbot (question -> answer)
+        - [ ] look up: NN & natural language processing
+        - [ ] decide on network architecture
+        - [ ] implement network !!!
+            - [ ] categorize questions into semantic clusters
+            - [ ] pick answer
+        - [ ] testing
+            - [ ] get a dataset (online?)
+        - [ ] switch out words for synomyms
+    - [ ] security
+        - [ ] connect to account info
+
