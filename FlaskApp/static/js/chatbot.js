@@ -72,14 +72,14 @@ inputForm.style.position = "absolute";
 inputForm.style.right = "0px";
 inputForm.style.bottom = "40px";
 inputForm.style.width = "100%";
-inputForm.style.height = "80px";
+inputForm.style.height = "35px";
 inputForm.type = "text";
 inputForm.style.border = "0px solid gray";
 inputForm.style.borderTop = "1px solid gray";
 inputForm.style.boxSizing = "border-box";
 inputForm.style.paddingRight = "20px";
 inputForm.style.paddingLeft = "20px";
-inputForm.style.fontSize = "30px";
+inputForm.style.fontSize = "25px";
 
 header.style.position = "absolute";
 header.style.right = "0px";
@@ -102,6 +102,7 @@ sendButtonOnClick = function () {
     "http://localhost:5001/" + customerID + "/" + chatID,
     inputForm.value
   );
+  inputForm.value = "";
 };
 sendButton.type = "button";
 sendButton.id = "sendButton";
