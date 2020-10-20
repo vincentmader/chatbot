@@ -27,7 +27,7 @@ let chatID = 1;
 
 postAjaxCall(
   // "https://webhook.site/b501642c-11cd-4329-8973-6f7916f677f6",
-  "http://localhost:5000/chatbot/" + customerID + "/" + chatID,
+  "http://localhost:5001/" + customerID + "/" + chatID,
   "hello wooooooooooooorld"
 );
 

@@ -13,21 +13,10 @@ def chatbot():
 @app.route('/<customerID>/<chatID>', methods=['POST'])
 def chatbot_post(customerID, chatID):
 
-    msgs = {
-        1: {
-            1: [
-                {'sender': 'A', 'content': 'Du Fischkopf', 'timestamp': 1603034040},
-                {'sender': 'B', 'content': 'Du Kopffisch', 'timestamp': 1603034020},
-                {'sender': 'B', 'content': 'Du Cockfisch', 'timestamp': 1603034340},
-                {'sender': 'A', 'content': 'Du Fickkosch', 'timestamp': 1603022000},
-            ]
-        }
-    }
-
     query = request.form
     print(query)
 
-    return render_template('chatbot.html')
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
