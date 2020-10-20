@@ -61,10 +61,10 @@ messageList.id = "messageList";
 
 document.body.appendChild(chatWindow);
 document.body.appendChild(chatButton);
+document.getElementById("chatWindow").appendChild(messageList);
 document.getElementById("chatWindow").appendChild(header);
 document.getElementById("chatWindow").appendChild(inputForm);
 document.getElementById("chatWindow").appendChild(sendButton);
-document.getElementById("chatWindow").appendChild(messageList);
 
 const callbackfunc = function (res) {
   let foo = JSON.parse(res)["messages"];
@@ -73,8 +73,9 @@ const callbackfunc = function (res) {
   document.getElementById("messageList").outerHTML = "";
   const messageList = document.createElement("div");
   messageList.id = "messageList";
-  messageList.style.overflow = "hidden";
+  messageList.style.overflow = "scroll";
   messageList.style.position = "absolute";
+  messageList.style.height = "370px";
   messageList.style.top = "40px";
   messageList.style.padding = "5px";
   document.getElementById("chatWindow").appendChild(messageList);
@@ -86,8 +87,10 @@ const callbackfunc = function (res) {
     const msgBubble = document.createElement("div");
     msgBubble.id = "msgBubble";
     msgBubble.style.width = "200px";
-    msgBubble.style.height = "100px";
-    msgBubble.style.border = "2px solid pink";
+    msgBubble.style.height = "50px";
+    msgBubble.style.border = "2px solid green";
+    msgBubble.style.borderRadius = "20px";
+    msgBubble.style.color = "black";
     msgBubble.style.margin = "5px";
     document.getElementById("messageList").appendChild(msgBubble);
 
@@ -165,13 +168,12 @@ header.innerHTML = '<p style="margin-left:20px; font-family: Arial">Chat</p>';
 
 sendButton.type = "button";
 sendButton.value = "Send";
+sendButton.style.color = "white";
 sendButton.style.width = "100%";
-// sendButton.style.margin = "0px";
 sendButton.style.height = "40px";
 sendButton.style.border = "0px";
 sendButton.style.borderRadius = "5px";
-sendButton.style.backgroundColor = "coral";
+sendButton.style.backgroundColor = "green";
 sendButton.style.position = "absolute";
-// sendButton.style.right = "10px";
 sendButton.style.bottom = "0px";
 sendButton.onclick = sendButtonOnClick;

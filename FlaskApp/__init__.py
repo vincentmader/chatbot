@@ -15,6 +15,10 @@ MESSAGES = {
 }
 
 
+def get_answer(question):
+    return f"You said {question}"
+
+
 @app.route('/')
 def chatbot():
     return render_template('index.html')
@@ -27,12 +31,22 @@ def chatbot_post(customerID, chatID):
 
     timestamp = dt.now().timestamp()
     msg_content = request.form
-    msg_content = [i for i in msg_content.keys()][0]  # TODO: this is shitty
+    if msg_content:
+        # TODO: this is shitty
+        msg_content = [i for i in msg_content.keys()][0]
+    else:
+        msg_content = ''
     sender = 'customer'
 
     if msg_content:
         MESSAGES['messages'].append(dict(
             timestamp=timestamp, msg_content=msg_content, sender=sender
+        ))
+
+        MESSAGES['messages'].append(dict(
+            timestamp=dt.now().timestamp(),
+            msg_content=get_answer(msg_content),
+            sender='bot'
         ))
 
     return render_template('index.html')
