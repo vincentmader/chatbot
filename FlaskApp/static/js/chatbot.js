@@ -25,18 +25,12 @@ function postAjaxCall(url, data) {
 let customerID = 1;
 let chatID = 1;
 
-postAjaxCall(
-  // "https://webhook.site/b501642c-11cd-4329-8973-6f7916f677f6",
-  "http://localhost:5001/" + customerID + "/" + chatID,
-  "hello wooooooooooooorld"
-);
-
 const css = document.createElement("link");
 const chatButton = document.createElement("div");
 const chatWindow = document.createElement("div");
 const inputForm = document.createElement("input");
 const header = document.createElement("div");
-const sendButton = document.createElement("input");
+const sendButton = document.createElement("button");
 
 chatButton.id = "chatButton";
 chatButton.style.color = "red";
@@ -102,7 +96,14 @@ header.innerHTML = '<p style="margin-left:20px; font-family: Arial">Chat</p>';
 // css.type = "text/css";
 // css.rel = "stylesheet";
 
-sendButton.type = "submit";
+sendButtonOnClick = function () {
+  postAjaxCall(
+    // "https://webhook.site/b501642c-11cd-4329-8973-6f7916f677f6",
+    "http://localhost:5001/" + customerID + "/" + chatID,
+    "hello wooooooooooooorld"
+  );
+};
+sendButton.type = "button";
 sendButton.id = "sendButton";
 sendButton.value = "Send";
 sendButton.style.width = "100%";
@@ -114,6 +115,7 @@ sendButton.style.backgroundColor = "coral";
 sendButton.style.position = "absolute";
 // sendButton.style.right = "10px";
 sendButton.style.bottom = "0px";
+sendButton.onclick = sendButtonOnClick;
 
 // document.head.append(css);
 document.body.appendChild(chatWindow);
