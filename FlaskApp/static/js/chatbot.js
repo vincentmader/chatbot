@@ -1,3 +1,6 @@
+let customerID = 1;
+let chatID = 1;
+
 function httpPost(url, data) {
   // return a new promise.
   return new Promise(function (resolve, reject) {
@@ -14,6 +17,7 @@ function httpPost(url, data) {
       }
     };
     // handle network errors
+    //
     req.onerror = function () {
       reject(Error("Network Error"));
     }; // make the request
@@ -27,13 +31,13 @@ function httpPost(url, data) {
 //   xmlHttp.send(null);
 //   return xmlHttp.responseText;
 // }
-function httpGet(theUrl, callback) {
+function httpGet(url, callback) {
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function () {
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
       callback(xmlHttp.responseText);
   };
-  xmlHttp.open("GET", theUrl, true); // true for asynchronous
+  xmlHttp.open("GET", url, true); // true for asynchronous
   xmlHttp.send(null);
 }
 
@@ -46,6 +50,26 @@ sendButtonOnClick = function () {
   inputForm.value = "";
   httpGet("http://localhost:5001/messageList", callbackfunc);
 };
+
+function toDate(timestamp) {
+  date = new Date(timestamp);
+  console.log(date);
+
+  return (
+    String(date.getFullYear()) +
+    "-" +
+    String(date.getMonth() + 1) +
+    "-" +
+    String(date.getDate()) +
+    " " +
+    String(date.getHours()) +
+    ":" +
+    String(date.getMinutes()) +
+    ":" +
+    String(date.getSeconds()) +
+    ",  "
+  );
+}
 
 const chatButton = document.createElement("div");
 const chatWindow = document.createElement("div");
@@ -100,6 +124,8 @@ const callbackfunc = function (res) {
 
     msgBubble.innerHTML =
       '<p style="margin-left:20px; font-family: Arial">' +
+      toDate(Number(msg["timestamp"])) +
+      "\n" +
       msg["msg_content"] +
       "</p>";
   }
@@ -107,9 +133,7 @@ const callbackfunc = function (res) {
 
 httpGet("http://localhost:5001/messageList", callbackfunc);
 
-let customerID = 1;
-let chatID = 1;
-
+// styles
 chatButton.style.color = "red";
 chatButton.style.backgroundColor = "white";
 chatButton.style.width = "100px";
