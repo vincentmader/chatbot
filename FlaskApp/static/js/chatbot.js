@@ -25,6 +25,7 @@ function httpPost(url, data) {
     //same thing if i hardcode like //req.send("limit=2");
   });
 }
+
 // function httpGet(url) {
 //   var xmlHttp = new XMLHttpRequest();
 //   xmlHttp.open("GET", url, true); // false for synchronous request
@@ -32,7 +33,7 @@ function httpPost(url, data) {
 //   return xmlHttp.responseText;
 // }
 function httpGet(url, callback) {
-  var xmlHttp = new XMLHttpRequest();
+  let xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function () {
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
       callback(xmlHttp.responseText);
@@ -43,9 +44,9 @@ function httpGet(url, callback) {
 
 sendButtonOnClick = function () {
   httpPost(
-    // "https://webhook.site/b501642c-11cd-4329-8973-6f7916f677f6",
-    "http://localhost:5001/" + customerID + "/" + chatID,
-    inputForm.value
+      // "https://webhook.site/b501642c-11cd-4329-8973-6f7916f677f6",
+      "http://localhost:5001/" + customerID + "/" + chatID,
+      inputForm.value
   );
   inputForm.value = "";
   httpGet("http://localhost:5001/messageList", callbackfunc);
@@ -56,18 +57,18 @@ function toDate(timestamp) {
   console.log(date);
 
   return (
-    String(date.getFullYear()) +
-    "-" +
-    String(date.getMonth() + 1) +
-    "-" +
-    String(date.getDate()) +
-    " " +
-    String(date.getHours()) +
-    ":" +
-    String(date.getMinutes()) +
-    ":" +
-    String(date.getSeconds()) +
-    ",  "
+      String(date.getFullYear()) +
+      "-" +
+      String(date.getMonth() + 1) +
+      "-" +
+      String(date.getDate()) +
+      " " +
+      String(date.getHours()) +
+      ":" +
+      String(date.getMinutes()) +
+      ":" +
+      String(date.getSeconds()) +
+      ",  "
   );
 }
 
@@ -99,7 +100,7 @@ const callbackfunc = function (res) {
   messageList.id = "messageList";
   messageList.style.overflow = "scroll";
   messageList.style.position = "absolute";
-  messageList.style.height = "370px";
+  messageList.style.height = "350px";
   messageList.style.top = "40px";
   messageList.style.padding = "5px";
   document.getElementById("chatWindow").appendChild(messageList);
@@ -111,7 +112,6 @@ const callbackfunc = function (res) {
     const msgBubble = document.createElement("div");
     msgBubble.id = "msgBubble";
     msgBubble.style.width = "200px";
-    msgBubble.style.height = "50px";
     msgBubble.style.border = "2px solid green";
     msgBubble.style.borderRadius = "20px";
     msgBubble.style.color = "black";
@@ -125,11 +125,11 @@ const callbackfunc = function (res) {
     }
 
     msgBubble.innerHTML =
-      '<p style="margin-left:20px; font-family: Arial,sans-serif">' +
-      toDate(Number(msg["timestamp"])) +
-      "\n" +
-      msg["msg_content"] +
-      "</p>";
+        '<p style="margin-left:20px; font-family: Arial,sans-serif">' +
+        toDate(Number(msg["timestamp"])) +
+        "\n" +
+        msg["msg_content"] +
+        "</p>";
   }
 };
 
@@ -158,6 +158,7 @@ chatWindow.style.overflow = "hidden";
 chatWindow.style.border = "3px solid gray";
 chatWindow.style.borderRadius = "10px";
 let chatWindowActive = false;
+
 function foo() {
   if (chatWindowActive) {
     chatWindow.style.visibility = "hidden";
@@ -167,6 +168,7 @@ function foo() {
     chatWindowActive = true;
   }
 }
+
 chatButton.addEventListener("click", foo);
 
 inputForm.name = "inputForm";
@@ -191,7 +193,7 @@ header.style.top = "0px";
 header.style.width = "100%";
 header.style.height = "40px";
 header.innerHTML =
-  '<p style="margin-left:20px; font-family: Arial,sans-serif">Chat</p>';
+    '<p style="margin-left:20px; font-family: Arial,sans-serif">Chat</p>';
 
 sendButton.type = "button";
 sendButton.innerHTML = "Send";
