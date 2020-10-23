@@ -10,7 +10,7 @@ function httpPost(url, data) {
     //NOW WE TELL THE SERVER WHAT FORMAT OF POST REQUEST WE ARE MAKING
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.onload = function () {
-      if (req.status == 200) {
+      if (req.status === 200) {
         resolve(req.response);
       } else {
         reject(Error(req.statusText));
@@ -34,7 +34,7 @@ function httpPost(url, data) {
 function httpGet(url, callback) {
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function () {
-    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+    if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
       callback(xmlHttp.responseText);
   };
   xmlHttp.open("GET", url, true); // true for asynchronous
@@ -73,7 +73,7 @@ function toDate(timestamp) {
 
 const chatButton = document.createElement("div");
 const chatWindow = document.createElement("div");
-const inputForm = document.createElement("input");
+const inputForm = document.createElement("textarea");
 const header = document.createElement("div");
 const sendButton = document.createElement("button");
 const messageList = document.createElement("div");
@@ -118,12 +118,14 @@ const callbackfunc = function (res) {
     msgBubble.style.margin = "5px";
     document.getElementById("messageList").appendChild(msgBubble);
 
-    if (msg["sender"] != "bot") {
+    if (msg["sender"] !== "bot") {
       msgBubble.style.marginLeft = "80px";
+      msgBubble.style.backgroundColor = "green";
+      msgBubble.style.color = "white";
     }
 
     msgBubble.innerHTML =
-      '<p style="margin-left:20px; font-family: Arial">' +
+      '<p style="margin-left:20px; font-family: Arial,sans-serif">' +
       toDate(Number(msg["timestamp"])) +
       "\n" +
       msg["msg_content"] +
@@ -136,8 +138,8 @@ httpGet("http://localhost:5001/messageList", callbackfunc);
 // styles
 chatButton.style.color = "red";
 chatButton.style.backgroundColor = "white";
-chatButton.style.width = "100px";
-chatButton.style.height = "100px";
+chatButton.style.width = "70px";
+chatButton.style.height = "70px";
 chatButton.style.position = "absolute";
 chatButton.style.right = "10px";
 chatButton.style.bottom = "10px";
@@ -151,7 +153,7 @@ chatWindow.style.width = "300px";
 chatWindow.style.height = "500px";
 chatWindow.style.position = "absolute";
 chatWindow.style.right = "10px";
-chatWindow.style.bottom = "120px";
+chatWindow.style.bottom = "100px";
 chatWindow.style.overflow = "hidden";
 chatWindow.style.border = "3px solid gray";
 chatWindow.style.borderRadius = "10px";
@@ -172,14 +174,14 @@ inputForm.style.position = "absolute";
 inputForm.style.right = "0px";
 inputForm.style.bottom = "40px";
 inputForm.style.width = "100%";
-inputForm.style.height = "35px";
+inputForm.style.height = "60px";
 inputForm.type = "text";
 inputForm.style.border = "0px solid gray";
 inputForm.style.borderTop = "1px solid gray";
 inputForm.style.boxSizing = "border-box";
 inputForm.style.paddingRight = "20px";
 inputForm.style.paddingLeft = "20px";
-inputForm.style.fontSize = "25px";
+inputForm.style.fontSize = "20px";
 
 header.style.position = "absolute";
 header.style.right = "0px";
@@ -188,10 +190,11 @@ header.style.backgroundColor = "white";
 header.style.top = "0px";
 header.style.width = "100%";
 header.style.height = "40px";
-header.innerHTML = '<p style="margin-left:20px; font-family: Arial">Chat</p>';
+header.innerHTML =
+  '<p style="margin-left:20px; font-family: Arial,sans-serif">Chat</p>';
 
 sendButton.type = "button";
-sendButton.value = "Send";
+sendButton.innerHTML = "Send";
 sendButton.style.color = "white";
 sendButton.style.width = "100%";
 sendButton.style.height = "40px";
