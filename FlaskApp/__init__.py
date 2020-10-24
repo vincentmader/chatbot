@@ -16,7 +16,7 @@ MESSAGES = {
 
 
 def get_answer(question):
-    return "You said {question}"
+    return f'You said {question}'
 
 
 @app.route('/')
@@ -24,7 +24,7 @@ def chatbot():
     return render_template('index.html')
 
 
-@app.route('/<customerID>/<chatID>', methods=['GET','POST'])
+@app.route('/<customerID>/<chatID>', methods=['GET', 'POST'])
 def chatbot_post(customerID, chatID):
 
     # print(request.form)
