@@ -8,15 +8,17 @@ app = Flask(__name__)
 
 MESSAGES = {
     'messages': [
-        dict(timestamp=109878978, msg_content='Test 1', sender='customer'),
-        dict(timestamp=109923890, msg_content='Test 2', sender='bot'),
-        dict(timestamp=109872390, msg_content='Test 3', sender='bot'),
+        dict(
+            timestamp=dt.now().timestamp(),
+            msg_content='hello . how may i help you ?',
+            sender='bot'
+        ),
     ]
 }
 
 
 def get_answer(question):
-    return f'You said {question}'
+    return question
 
 
 @app.route('/')

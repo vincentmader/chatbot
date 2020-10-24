@@ -105,7 +105,7 @@ function createMsgList(res) {
     msgBubble.innerHTML =
       '<p style="margin-left:20px; font-family: Arial,sans-serif">' +
       convertDateToStr(Number(msg["timestamp"])) +
-      "\n" +
+      "<br/><br/>" +
       msg["msg_content"] +
       "</p>";
   }
@@ -193,22 +193,49 @@ function initializeStyles() {
 }
 
 // various
+function convertIntToMonthName(num) {
+  monthNames = {
+    1: "January",
+    2: "February",
+    3: "March",
+    4: "April",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "August",
+    9: "September",
+    10: "October",
+    11: "November",
+    12: "December",
+  };
+  return monthNames[num];
+}
+
 function convertDateToStr(timestamp) {
-  date = new Date(timestamp);
+  // python dt timestamps are in secs,
+  // js timestamps are in millisec -> factor 1000
+  date = new Date(timestamp * 1000);
   return (
-    String(date.getFullYear()) +
-    "-" +
-    String(date.getMonth() + 1) +
-    "-" +
-    String(date.getDate()) +
+    // String(date.getFullYear()) +
+    convertIntToMonthName(date.getMonth() + 1) +
     " " +
-    String(date.getHours()) +
+    // "-" +
+    intToDoubleDigit(date.getDate()) +
+    ". at " +
+    intToDoubleDigit(date.getHours()) +
     ":" +
-    String(date.getMinutes()) +
+    intToDoubleDigit(date.getMinutes()) +
     ":" +
-    String(date.getSeconds()) +
-    ",  "
+    intToDoubleDigit(date.getSeconds())
   );
+}
+
+function intToDoubleDigit(num) {
+  if (num < 10) {
+    return " " + String(num);
+  } else {
+    return String(num);
+  }
 }
 
 // MAIN
