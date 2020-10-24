@@ -1,6 +1,21 @@
+// VARIABLE DEFINITIONS
+// ====================
+
 let customerID = 1;
 let chatID = 1;
 
+const chatButton = document.createElement("div");
+const chatWindow = document.createElement("div");
+const inputForm = document.createElement("textarea");
+const header = document.createElement("div");
+const sendButton = document.createElement("button");
+const messageList = document.createElement("div");
+let chatWindowActive = false;
+
+// FUNCTION DEFINITIONS
+// ====================
+
+// get & post requests
 function httpPost(url, data) {
   // return a new promise.
   return new Promise(function (resolve, reject) {
@@ -26,12 +41,6 @@ function httpPost(url, data) {
   });
 }
 
-// function httpGet(url) {
-//   var xmlHttp = new XMLHttpRequest();
-//   xmlHttp.open("GET", url, true); // false for synchronous request
-//   xmlHttp.send(null);
-//   return xmlHttp.responseText;
-// }
 function httpGet(url, callback) {
   let xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function () {
@@ -42,59 +51,30 @@ function httpGet(url, callback) {
   xmlHttp.send(null);
 }
 
-sendButtonOnClick = function () {
-  httpPost(
-      // "https://webhook.site/b501642c-11cd-4329-8973-6f7916f677f6",
-      "http://localhost:5001/" + customerID + "/" + chatID,
-      inputForm.value
-  );
-  inputForm.value = "";
-  httpGet("http://localhost:5001/messageList", callbackfunc);
-};
-
-function toDate(timestamp) {
-  date = new Date(timestamp);
-  console.log(date);
-
-  return (
-      String(date.getFullYear()) +
-      "-" +
-      String(date.getMonth() + 1) +
-      "-" +
-      String(date.getDate()) +
-      " " +
-      String(date.getHours()) +
-      ":" +
-      String(date.getMinutes()) +
-      ":" +
-      String(date.getSeconds()) +
-      ",  "
-  );
+// button onClick functions
+function chatWindowShowButtonOnClick() {
+  if (chatWindowActive) {
+    chatWindow.style.visibility = "hidden";
+    chatWindowActive = false;
+  } else {
+    chatWindow.style.visibility = "visible";
+    chatWindowActive = true;
+  }
 }
 
-const chatButton = document.createElement("div");
-const chatWindow = document.createElement("div");
-const inputForm = document.createElement("textarea");
-const header = document.createElement("div");
-const sendButton = document.createElement("button");
-const messageList = document.createElement("div");
+function sendButtonOnClick() {
+  httpPost(
+    // "https://webhook.site/b501642c-11cd-4329-8973-6f7916f677f6",
+    "http://localhost:5001/" + customerID + "/" + chatID,
+    inputForm.value
+  );
+  inputForm.value = ""; // clear input
+  httpGet("http://localhost:5001/messageList", createMsgList);
+}
 
-chatButton.id = "chatButton";
-chatWindow.id = "chatWindow";
-sendButton.id = "sendButton";
-messageList.id = "messageList";
-
-document.body.appendChild(chatWindow);
-document.body.appendChild(chatButton);
-document.getElementById("chatWindow").appendChild(messageList);
-document.getElementById("chatWindow").appendChild(header);
-document.getElementById("chatWindow").appendChild(inputForm);
-document.getElementById("chatWindow").appendChild(sendButton);
-
-const callbackfunc = function (res) {
-  let foo = JSON.parse(res)["messages"];
-  // console.log(typeof foo);
-  // console.log(foo);
+// create html elements
+function createMsgList(res) {
+  let messages = JSON.parse(res)["messages"];
   document.getElementById("messageList").outerHTML = "";
   const messageList = document.createElement("div");
   messageList.id = "messageList";
@@ -104,10 +84,8 @@ const callbackfunc = function (res) {
   messageList.style.top = "40px";
   messageList.style.padding = "5px";
   document.getElementById("chatWindow").appendChild(messageList);
-  for (let idx = 0; idx < foo.length; idx++) {
-    msg = foo[idx];
-    console.log(msg);
-    // messages.push(foo[idx]);
+  for (let idx = 0; idx < messages.length; idx++) {
+    msg = messages[idx];
 
     const msgBubble = document.createElement("div");
     msgBubble.id = "msgBubble";
@@ -125,84 +103,125 @@ const callbackfunc = function (res) {
     }
 
     msgBubble.innerHTML =
-        '<p style="margin-left:20px; font-family: Arial,sans-serif">' +
-        toDate(Number(msg["timestamp"])) +
-        "\n" +
-        msg["msg_content"] +
-        "</p>";
-  }
-};
-
-httpGet("http://localhost:5001/messageList", callbackfunc);
-
-// styles
-chatButton.style.color = "red";
-chatButton.style.backgroundColor = "white";
-chatButton.style.width = "70px";
-chatButton.style.height = "70px";
-chatButton.style.position = "absolute";
-chatButton.style.right = "10px";
-chatButton.style.bottom = "10px";
-chatButton.style.visibility = "visible";
-chatButton.style.borderRadius = "50%";
-chatButton.style.border = "3px solid gray";
-
-chatWindow.style.backgroundColor = "white";
-chatWindow.style.visibility = "hidden";
-chatWindow.style.width = "300px";
-chatWindow.style.height = "500px";
-chatWindow.style.position = "absolute";
-chatWindow.style.right = "10px";
-chatWindow.style.bottom = "100px";
-chatWindow.style.overflow = "hidden";
-chatWindow.style.border = "3px solid gray";
-chatWindow.style.borderRadius = "10px";
-let chatWindowActive = false;
-
-function foo() {
-  if (chatWindowActive) {
-    chatWindow.style.visibility = "hidden";
-    chatWindowActive = false;
-  } else {
-    chatWindow.style.visibility = "visible";
-    chatWindowActive = true;
+      '<p style="margin-left:20px; font-family: Arial,sans-serif">' +
+      convertDateToStr(Number(msg["timestamp"])) +
+      "\n" +
+      msg["msg_content"] +
+      "</p>";
   }
 }
 
-chatButton.addEventListener("click", foo);
+// define IDs for HTML elements
+function defineHTMLIDs() {
+  chatButton.id = "chatButton";
+  chatWindow.id = "chatWindow";
+  sendButton.id = "sendButton";
+  messageList.id = "messageList";
+}
 
-inputForm.name = "inputForm";
-inputForm.style.position = "absolute";
-inputForm.style.right = "0px";
-inputForm.style.bottom = "40px";
-inputForm.style.width = "100%";
-inputForm.style.height = "60px";
-inputForm.type = "text";
-inputForm.style.border = "0px solid gray";
-inputForm.style.borderTop = "1px solid gray";
-inputForm.style.boxSizing = "border-box";
-inputForm.style.paddingRight = "20px";
-inputForm.style.paddingLeft = "20px";
-inputForm.style.fontSize = "20px";
+// append HTML elements to document
+function appendElementsToDoc() {
+  document.body.appendChild(chatWindow);
+  document.body.appendChild(chatButton);
+  document.getElementById("chatWindow").appendChild(messageList);
+  document.getElementById("chatWindow").appendChild(header);
+  document.getElementById("chatWindow").appendChild(inputForm);
+  document.getElementById("chatWindow").appendChild(sendButton);
+}
 
-header.style.position = "absolute";
-header.style.right = "0px";
-header.style.borderBottom = "1px solid gray";
-header.style.backgroundColor = "white";
-header.style.top = "0px";
-header.style.width = "100%";
-header.style.height = "40px";
-header.innerHTML =
+// styles
+function initializeStyles() {
+  chatButton.style.color = "red";
+  chatButton.style.backgroundColor = "white";
+  chatButton.style.width = "70px";
+  chatButton.style.height = "70px";
+  chatButton.style.position = "absolute";
+  chatButton.style.right = "10px";
+  chatButton.style.bottom = "10px";
+  chatButton.style.visibility = "visible";
+  chatButton.style.borderRadius = "50%";
+  chatButton.style.border = "3px solid gray";
+  chatButton.addEventListener("click", chatWindowShowButtonOnClick);
+
+  chatWindow.style.backgroundColor = "white";
+  chatWindow.style.visibility = "hidden";
+  chatWindow.style.width = "300px";
+  chatWindow.style.height = "500px";
+  chatWindow.style.position = "absolute";
+  chatWindow.style.right = "10px";
+  chatWindow.style.bottom = "100px";
+  chatWindow.style.overflow = "hidden";
+  chatWindow.style.border = "3px solid gray";
+  chatWindow.style.borderRadius = "10px";
+
+  inputForm.name = "inputForm";
+  inputForm.style.position = "absolute";
+  inputForm.style.right = "0px";
+  inputForm.style.bottom = "40px";
+  inputForm.style.width = "100%";
+  inputForm.style.height = "60px";
+  inputForm.type = "text";
+  inputForm.style.border = "0px solid gray";
+  inputForm.style.borderTop = "1px solid gray";
+  inputForm.style.boxSizing = "border-box";
+  inputForm.style.paddingRight = "20px";
+  inputForm.style.paddingLeft = "20px";
+  inputForm.style.fontSize = "20px";
+  inputForm.style.fontFamily = "Arial,sans-serif";
+
+  header.style.position = "absolute";
+  header.style.right = "0px";
+  header.style.borderBottom = "1px solid gray";
+  header.style.backgroundColor = "white";
+  header.style.top = "0px";
+  header.style.width = "100%";
+  header.style.height = "40px";
+  header.innerHTML =
     '<p style="margin-left:20px; font-family: Arial,sans-serif">Chat</p>';
 
-sendButton.type = "button";
-sendButton.innerHTML = "Send";
-sendButton.style.color = "white";
-sendButton.style.width = "100%";
-sendButton.style.height = "40px";
-sendButton.style.border = "0px";
-sendButton.style.borderRadius = "5px";
-sendButton.style.backgroundColor = "green";
-sendButton.style.position = "absolute";
-sendButton.style.bottom = "0px";
-sendButton.onclick = sendButtonOnClick;
+  sendButton.type = "button";
+  sendButton.innerHTML = "Send";
+  sendButton.style.color = "white";
+  sendButton.style.width = "100%";
+  sendButton.style.height = "40px";
+  sendButton.style.border = "0px";
+  sendButton.style.borderRadius = "5px";
+  sendButton.style.backgroundColor = "green";
+  sendButton.style.position = "absolute";
+  sendButton.style.bottom = "0px";
+  sendButton.onclick = sendButtonOnClick;
+}
+
+// various
+function convertDateToStr(timestamp) {
+  date = new Date(timestamp);
+  return (
+    String(date.getFullYear()) +
+    "-" +
+    String(date.getMonth() + 1) +
+    "-" +
+    String(date.getDate()) +
+    " " +
+    String(date.getHours()) +
+    ":" +
+    String(date.getMinutes()) +
+    ":" +
+    String(date.getSeconds()) +
+    ",  "
+  );
+}
+
+// MAIN
+// ====
+
+function main() {
+  // create HTML elements
+  defineHTMLIDs();
+  appendElementsToDoc();
+  initializeStyles();
+
+  // initialize messageList
+  httpGet("http://localhost:5001/messageList", createMsgList);
+}
+
+main();
