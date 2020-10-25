@@ -323,14 +323,15 @@ def evaluateInputOnce(encoder, decoder, searcher, voc, input_sentence):
 def main(q):
 
     encoder = torch.load(os.path.join(
-        PATH_TO_PROJECT, 'data/network_saves/encoder'))
+        PATH_TO_PROJECT, 'network_states/test1_seq2seq_rnn/encoder'))
     decoder = torch.load(os.path.join(
-        PATH_TO_PROJECT, 'data/network_saves/decoder'))
-    voc = torch.load(os.path.join(PATH_TO_PROJECT, 'data/network_saves/voc'))
+        PATH_TO_PROJECT, 'network_states/test1_seq2seq_rnn/decoder'))
+    voc = torch.load(os.path.join(
+        PATH_TO_PROJECT, 'network_states/test1_seq2seq_rnn/voc'))
     searcher = torch.load(os.path.join(
-        PATH_TO_PROJECT, 'data/network_saves/searcher'))
+        PATH_TO_PROJECT, 'network_states/test1_seq2seq_rnn/searcher'))
     evaluateInput = torch.load(os.path.join(
-        PATH_TO_PROJECT, 'data/network_saves/evaluateInput'))
+        PATH_TO_PROJECT, 'network_states/test1_seq2seq_rnn/evaluateInput'))
 
     return evaluateInputOnce(
         encoder, decoder, searcher, voc, q
