@@ -2,6 +2,7 @@ venv
 .vim
 .DS_Store
 requirements2.txt
-data
 __pycache__
 node_modules
+network_states
+training_data
