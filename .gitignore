@@ -3,3 +3,5 @@ venv
 .DS_Store
 requirements2.txt
 data
+__pycache__
+node_modules
