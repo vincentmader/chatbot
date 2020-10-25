@@ -70,6 +70,10 @@ function sendButtonOnClick() {
   );
   inputForm.value = ""; // clear input
   httpGet("http://localhost:5001/messageList", createMsgList);
+  setTimeout(
+    () => httpGet("http://localhost:5001/messageList", createMsgList),
+    1000
+  );
 }
 
 // create html elements
@@ -248,7 +252,12 @@ function main() {
   initializeStyles();
 
   // initialize messageList
+  // while (true) {
+  //   var _ = setInterval(
   httpGet("http://localhost:5001/messageList", createMsgList);
+  // 10000
+  // );
+  // }
 }
 
 main();
