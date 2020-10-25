@@ -3,6 +3,9 @@ from datetime import datetime as dt
 import flask
 from flask import Flask, render_template, send_from_directory, request, jsonify
 
+from networks import get_answer_from_RNN
+from networks.get_answer_from_RNN import *
+
 
 app = Flask(__name__)
 
@@ -18,15 +21,16 @@ MESSAGES = {
 
 
 def get_answer(question):
-    return question
+    # return question
+    return get_answer_from_RNN(question)
 
 
-@app.route('/')
+@ app.route('/')
 def chatbot():
     return render_template('index.html')
 
 
-@app.route('/<customerID>/<chatID>', methods=['GET', 'POST'])
+@ app.route('/<customerID>/<chatID>', methods=['GET', 'POST'])
 def chatbot_post(customerID, chatID):
 
     # print(request.form)
@@ -54,7 +58,7 @@ def chatbot_post(customerID, chatID):
     return render_template('index.html')
 
 
-@app.route('/messageList/', methods=['GET'])
+@ app.route('/messageList/', methods=['GET'])
 def messageList():
     # return MESSAGES
     return jsonify(MESSAGES)
