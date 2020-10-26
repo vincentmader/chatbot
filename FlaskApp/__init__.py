@@ -3,8 +3,8 @@ from datetime import datetime as dt
 import flask
 from flask import Flask, render_template, send_from_directory, request, jsonify
 
-from networks import get_answer_from_RNN
-from networks.get_answer_from_RNN import *
+from networks.recurrent_seq2seq import get_answer_from_RNN
+from networks.recurrent_seq2seq.get_answer_from_RNN import *
 
 
 app = Flask(__name__)
