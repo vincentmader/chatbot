@@ -16,6 +16,7 @@ from .voc import Voc
 from .attn import Attn
 from .encoder_rnn import EncoderRNN
 from .luong_attn_decoder_rnn import LuongAttnDecoderRNN
+from .greedy_search_decoder import GreedySearchDecoder
 
 
 USE_CUDA = torch.cuda.is_available()

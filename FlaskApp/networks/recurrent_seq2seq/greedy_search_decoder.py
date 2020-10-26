@@ -2,6 +2,14 @@ import torch.nn.functional as F
 import torch
 import torch.nn as nn
 
+USE_CUDA = torch.cuda.is_available()
+device = torch.device('cuda' if USE_CUDA else 'cpu')
+
+# Default word tokens
+PAD_token = 0  # Used for padding short sentences
+SOS_token = 1  # Start-of-sentence token
+EOS_token = 2  # End-of-sentence token
+
 
 class GreedySearchDecoder(nn.Module):
     def __init__(self, encoder, decoder):
@@ -15,7 +23,7 @@ class GreedySearchDecoder(nn.Module):
             input_seq, input_length)
         # Prepare encoder's final hidden layer to be first hidden
         # input to the decoder
-        decoder_hidden = encoder_hidden[:decoder.n_layers]
+        decoder_hidden = encoder_hidden[:self.decoder.n_layers]
         # Initialize decoder input with SOS_token
         decoder_input = torch.ones(
             1, 1, device=device, dtype=torch.long) * SOS_token
