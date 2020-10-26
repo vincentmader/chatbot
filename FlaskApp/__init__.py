@@ -6,6 +6,7 @@ from flask import Flask, render_template, send_from_directory, request, jsonify
 from networks.recurrent_seq2seq import get_answer_from_RNN
 from networks.recurrent_seq2seq.get_answer_from_RNN import *
 
+PATH_TO_PROJECT = '../'
 
 app = Flask(__name__)
 
@@ -21,8 +22,15 @@ MESSAGES = {
 
 
 def get_answer(question):
-    # return question
-    return get_answer_from_RNN(question)
+    if not os.path.exists(
+        os.path.join(
+            PATH_TO_PROJECT, 'network_states',
+            'test1_seq2seq_rnn', 'encoder'
+        )
+    ):
+        return question
+    else:
+        return get_answer_from_RNN(question)
 
 
 @ app.route('/')
