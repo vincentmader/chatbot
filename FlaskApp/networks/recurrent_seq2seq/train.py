@@ -608,21 +608,21 @@ def main():
     torch.save(
         GreedySearchDecoder,
         os.path.join(PATH_TO_PROJECT,
-                     'network_states/test1_seq2seq_rnn/searcher')
+                     'saved_models/test1_seq2seq_rnn/searcher')
     )
     torch.save(
         encoder,
         os.path.join(PATH_TO_PROJECT,
-                     'network_states/test1_seq2seq_rnn/encoder')
+                     'saved_models/test1_seq2seq_rnn/encoder')
     )
     torch.save(
         decoder,
         os.path.join(PATH_TO_PROJECT,
-                     'network_states/test1_seq2seq_rnn/decoder')
+                     'saved_models/test1_seq2seq_rnn/decoder')
     )
     torch.save(
         voc,
-        os.path.join(PATH_TO_PROJECT, 'network_states/test1_seq2seq_rnn/voc')
+        os.path.join(PATH_TO_PROJECT, 'saved_models/test1_seq2seq_rnn/voc')
     )
 
     # Begin chatting (uncomment and run the following line to begin)

@@ -4,5 +4,5 @@ venv
 requirements2.txt
 __pycache__
 node_modules
-network_states
+saved_models
 training_data

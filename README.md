@@ -31,7 +31,7 @@ and move its contents into the project directory at
 
 Also, you should create the folder
 
-        ./network_states
+        ./saved_models/
         
 (do not commit the training data nor the saved 
 network states to the repo)

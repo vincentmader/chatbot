@@ -24,7 +24,7 @@ MESSAGES = {
 def get_answer(question):
     if not os.path.exists(
         os.path.join(
-            PATH_TO_PROJECT, 'network_states',
+            PATH_TO_PROJECT, 'saved_models',
             'test1_seq2seq_rnn', 'encoder'
         )
     ):
