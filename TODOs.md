@@ -69,3 +69,27 @@ training & testing
     - [ ] ...
 
 
+approximate file structure
+--------------------------
+
+networks
+    recurrent_seq2seq
+        clustering
+            create N-dim blobs
+                in: conversations
+                out: blobs 
+            ...
+        
+        context recognition
+            intent (point in blob -> nearest cluster center)
+                in: message (message history)
+                out: topic/grouping & subgrouping ?
+            find entities
+        
+        recurrent_net
+            ...
+        
+        data_preparation
+            tokenize
+            ...
+        
