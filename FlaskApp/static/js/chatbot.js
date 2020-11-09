@@ -228,15 +228,13 @@ function convertDateToStr(timestamp) {
     ". at " +
     intToDoubleDigit(date.getHours()) +
     ":" +
-    intToDoubleDigit(date.getMinutes()) +
-    ":" +
-    intToDoubleDigit(date.getSeconds())
+    intToDoubleDigit(date.getMinutes())
   );
 }
 
 function intToDoubleDigit(num) {
   if (num < 10) {
-    return " " + String(num);
+    return "0" + String(num);
   } else {
     return String(num);
   }
