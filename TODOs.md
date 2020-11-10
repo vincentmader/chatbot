@@ -2,25 +2,6 @@
 # TODOs
 
 
-deploy
-------
-
-- [o] frontend 
-    - [X] basic strucutre
-        - [X] start button
-        - [X] chat history
-            - [X] get message list and display
-        - [X] input field & send button
-            - [X] post message info to backend on send
-    - [ ] beautify / css
-        - [ ] profile info
-        - [ ] typing animation -> lottie
-
-- [ ] backend
-    - [ ] security
-        - [ ] connect to account info
-
-- [ ] move project on server -> online testing
 
 network
 -------
@@ -67,6 +48,27 @@ training & testing
 
 - [ ] testing
     - [ ] ...
+
+
+deploy
+------
+
+- [o] frontend 
+    - [X] basic structure
+        - [X] start button
+        - [X] chat history
+            - [X] get message list and display
+        - [X] input field & send button
+            - [X] post message info to backend on send
+    - [ ] beautify / css
+        - [ ] profile info
+        - [ ] typing animation -> lottie?
+
+- [ ] backend
+    - [ ] security
+        - [ ] connect to account info
+
+- [ ] move project on server -> online testing
 
 
 approximate file structure
