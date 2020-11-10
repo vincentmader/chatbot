@@ -1,3 +1,3 @@
-from networks.recurrent_seq2seq import train
+from networks.greedy_attn_seq2seq_RNN import train
 
 train()

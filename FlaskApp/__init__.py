@@ -3,10 +3,11 @@ from datetime import datetime as dt
 import flask
 from flask import Flask, render_template, send_from_directory, request, jsonify
 
-from networks.recurrent_seq2seq import get_answer_from_RNN
-from networks.recurrent_seq2seq.get_answer_from_RNN import *
+from networks.greedy_attn_seq2seq_RNN import get_answer as get_answer_from_RNN
+from networks.greedy_attn_seq2seq_RNN.get_answer import *
 
-PATH_TO_PROJECT = '../'
+from config import PATH_TO_PROJECT
+
 
 app = Flask(__name__)
 
